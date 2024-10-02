@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Prism from 'prismjs';
-import 'prismjs/themes/prism-okaidia.css'; // Optional theme for code highlighting
-import './Result.css'; // Assuming you have the necessary styles here
+import 'prismjs/themes/prism-okaidia.css';
+import './Result.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ResultsPage() {
   const location = useLocation();
-  const { generatedData } = location.state || {}; // Fallback if no data
+  const { generatedData } = location.state || {};
 
   const [selectedCodeType, setSelectedCodeType] = useState('html');
-  console.log('API Key:', process.env.REACT_APP_OPENAI_API_KEY);
 
-  // Always call useEffect outside any conditional logic
   useEffect(() => {
     Prism.highlightAll();
   }, [selectedCodeType]);
 
-  // Another useEffect to handle the resizing logic
   useEffect(() => {
     const handleResize = () => {
       const container = document.querySelector('.code-container');
       const viewportWidth = window.innerWidth;
 
-      // Adjust font-size based on viewport width
       if (viewportWidth < 768) {
         container.style.fontSize = '12px';
       } else if (viewportWidth >= 768 && viewportWidth < 1440) {
@@ -33,13 +29,10 @@ function ResultsPage() {
       }
     };
 
-    // Initial call to set the size
     handleResize();
 
-    // Add event listener to handle window resizing
     window.addEventListener('resize', handleResize);
 
-    // Cleanup on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -49,8 +42,18 @@ function ResultsPage() {
     setSelectedCodeType(codeType);
   };
 
-  // Function to insert line breaks at a character limit for long lines
-  const processCodeText = (codeText, lineLimit = 80) => {
+  const processCodeText = (codeText) => {
+    const viewportWidth = window.innerWidth;
+    let lineLimit;
+
+    if (viewportWidth < 768) {
+      lineLimit = 50;
+    } else if (viewportWidth >= 768 && viewportWidth < 1440) {
+      lineLimit = 80;
+    } else {
+      lineLimit = 100;
+    }
+
     return codeText
         .split('\n')
         .map((line) => {
@@ -62,19 +65,17 @@ function ResultsPage() {
         .join('\n');
   };
 
-  // Check if the data is received correctly after the effects are set up
   if (!generatedData) {
     return <div>No data found. Please go back and generate some code.</div>;
   }
 
   const { html, css, js } = generatedData;
 
-  // If no code is necessary (e.g., no CSS or JS), display the cute cat image for that section
   const showCatImageForCSS = !css;
   const showCatImageForJS = !js;
 
   return (
-      <div className="container">
+      <div className="container-fluid">
         <header>
           <div className="logo-container">
             <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid"/>
@@ -82,9 +83,8 @@ function ResultsPage() {
         </header>
 
         <main>
-          <div className="content-wrapper">
-            {/* Button container */}
-            <div className="button-container">
+          <div className="row">
+            <div className="col-md-2 button-container">
               <button
                   className={`toggle-button ${selectedCodeType === 'html' ? 'active' : ''}`}
                   onClick={() => handleToggle('html')}
@@ -105,11 +105,11 @@ function ResultsPage() {
               </button>
             </div>
 
-            <div className="code-container">
+            <div className="col-md-10 code-container">
               {selectedCodeType === 'html' && (
                   <pre className="code-block">
-                <code className="language-html">{processCodeText(html)}</code>
-              </pre>
+              <code className="language-html">{processCodeText(html)}</code>
+            </pre>
               )}
 
               {selectedCodeType === 'css' && showCatImageForCSS ? (
@@ -120,8 +120,8 @@ function ResultsPage() {
               ) : (
                   selectedCodeType === 'css' && (
                       <pre className="code-block">
-                  <code className="language-css">{processCodeText(css)}</code>
-                </pre>
+                <code className="language-css">{processCodeText(css)}</code>
+              </pre>
                   )
               )}
 
@@ -133,8 +133,8 @@ function ResultsPage() {
               ) : (
                   selectedCodeType === 'js' && (
                       <pre className="code-block">
-                  <code className="language-javascript">{processCodeText(js)}</code>
-                </pre>
+                <code className="language-javascript">{processCodeText(js)}</code>
+              </pre>
                   )
               )}
             </div>
