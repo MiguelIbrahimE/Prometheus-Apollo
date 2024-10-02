@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Using Axios to send HTTP requests
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function UploadPage() {
   const [inputText, setInputText] = useState('');
@@ -101,8 +102,11 @@ function UploadPage() {
   return (
       <div className="container">
         <header>
-          <img src="/logo-no-background.png" alt="Logo" className="logo-top-left" />
+          <div className="logo-container">
+            <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid"/>
+          </div>
         </header>
+
 
         <main>
           <form onSubmit={handleSubmit}>
