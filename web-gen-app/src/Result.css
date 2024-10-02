@@ -82,11 +82,12 @@ pre code {
 
 /* Ensure the logo scales responsively */
 .logo-container {
-    width: 9%; /* Width is relative for responsiveness */
-    max-width: 70px; /* Set a max width to avoid being too large */
+    width: 9%;
+    max-width: 70px;
     position: absolute;
     top: 20px;
     left: 20px;
+    z-index: 100; /* Make sure the logo stays on top */
 }
 
 /* Ensure the logo image fills the container and scales responsively */
@@ -95,6 +96,7 @@ pre code {
     height: auto;
     object-fit: contain; /* Scale the image inside the container */
 }
+
 
 .cat-image-container {
     display: flex;

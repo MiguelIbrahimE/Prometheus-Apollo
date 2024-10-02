@@ -81,6 +81,7 @@ function ResultsPage() {
             <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid"/>
           </div>
         </header>
+        <br></br><br></br><br></br><br></br><br></br><br></br>
 
         <main>
           <div className="row">
@@ -128,7 +129,7 @@ function ResultsPage() {
               {selectedCodeType === 'js' && showCatImageForJS ? (
                   <div className="cat-image-container">
                     <img src="/cat.png" alt="No code necessary"/>
-                    <p>No code necessary for this prompt! 😸</p>
+                    <p>No code necessary for this prompt! </p>
                   </div>
               ) : (
                   selectedCodeType === 'js' && (
