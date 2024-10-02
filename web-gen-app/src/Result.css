@@ -43,6 +43,12 @@
     background-color: #007bff;
 }
 
+/* Adjust the code container responsiveness */
+.container-fluid {
+    padding: 20px;
+    background-color: #1e1e1e;
+}
+
 .code-container {
     border-radius: 10px;
     background-color: #2d2d2d;
@@ -50,23 +56,47 @@
     max-width: 100%;
     overflow-x: auto;
     max-height: 80vh;
-    box-sizing: border-box;
+    padding: 10px; /* Ensure padding for better readability */
 }
 
-/* Code Block Styles */
 pre {
-    white-space: pre-wrap; /* Wrap long lines */
-    word-break: break-word; /* Ensure breaking of words on smaller screens */
-    overflow-x: auto; /* Enable horizontal scrolling if necessary */
-    max-width: 100%; /* Ensure it fits within the screen width */
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 pre code {
     font-size: 14px;
     color: #f8f8f2;
-    white-space: pre-wrap; /* Ensure code wraps inside the pre */
+    white-space: pre-wrap;
     word-wrap: break-word;
+    width: 100%;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
 }
+
+
+/* Ensure the logo scales responsively */
+.logo-container {
+    width: 9%;
+    max-width: 70px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100; /* Make sure the logo stays on top */
+}
+
+/* Ensure the logo image fills the container and scales responsively */
+.logo-top-left {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Scale the image inside the container */
+}
+
 
 .cat-image-container {
     display: flex;
