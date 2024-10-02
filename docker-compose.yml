@@ -5,10 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    env_file:
-      - .env  # Reference to the .env file for development
     environment:
-      - REACT_APP_OPENAI_API_KEY=${REACT_APP_OPENAI_API_KEY}  # Use environment variable for the API key
+      - REACT_APP_OPENAI_API_KEY=${REACT_APP_OPENAI_API_KEY}  # Pass API key as environment variable
     volumes:
       - ./web-gen-app:/app
     stdin_open: true
