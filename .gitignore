@@ -1,2 +1,2 @@
 .env
-node_modules.env
+web-gen-app/node_modules

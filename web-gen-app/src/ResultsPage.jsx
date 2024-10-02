@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-okaidia.css'; // Optional theme for code highlighting
 import './Result.css'; // Assuming you have the necessary styles here
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ResultsPage() {
   const location = useLocation();
@@ -75,7 +76,7 @@ function ResultsPage() {
   return (
       <div className="container">
         <header>
-          <img src="/logo-no-background.png" alt="Logo" className="logo-top-left" />
+          <img src="/logo.png" alt="Logo" className="logo-top-left" />
         </header>
 
         <main>
