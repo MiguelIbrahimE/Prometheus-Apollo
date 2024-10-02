@@ -1,0 +1,13 @@
+services:
+  frontend:
+    build:
+      context: ./web-gen-app  # Path to the frontend project directory
+      dockerfile: Dockerfile  # Path to Dockerfile within the web-gen-app directory
+    ports:
+      - "3000:3000"  # Expose port 3000 for React
+    env_file:
+      - .env  # Reference your .env file
+    volumes:
+      - ./web-gen-app:/app  # Bind mount the source code for hot reload
+    stdin_open: true  # Keep the terminal open to allow interactive inputs if needed
+    tty: true  # Allocate a terminal for this container

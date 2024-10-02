@@ -9,28 +9,14 @@ function ResultsPage() {
   const { generatedData } = location.state || {}; // Fallback if no data
 
   const [selectedCodeType, setSelectedCodeType] = useState('html');
+  console.log('API Key:', process.env.REACT_APP_OPENAI_API_KEY);
 
-  // Reapply syntax highlighting whenever the selected code type changes
+  // Always call useEffect outside any conditional logic
   useEffect(() => {
     Prism.highlightAll();
   }, [selectedCodeType]);
 
-  const handleToggle = (codeType) => {
-    setSelectedCodeType(codeType);
-  };
-
-  // Check if the data is received correctly
-  if (!generatedData) {
-    return <div>No data found. Please go back and generate some code.</div>;
-  }
-
-  const { html, css, js } = generatedData;
-
-  // If no code is necessary (e.g., no CSS or JS), display the cute cat image for that section
-  const showCatImageForCSS = !css;
-  const showCatImageForJS = !js;
-
-  // Dynamic font-size adjustment based on viewport size
+  // Another useEffect to handle the resizing logic
   useEffect(() => {
     const handleResize = () => {
       const container = document.querySelector('.code-container');
@@ -57,6 +43,34 @@ function ResultsPage() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const handleToggle = (codeType) => {
+    setSelectedCodeType(codeType);
+  };
+
+  // Function to insert line breaks at a character limit for long lines
+  const processCodeText = (codeText, lineLimit = 80) => {
+    return codeText
+        .split('\n')
+        .map((line) => {
+          if (line.length > lineLimit) {
+            return line.match(new RegExp(`.{1,${lineLimit}}`, 'g')).join('\n');
+          }
+          return line;
+        })
+        .join('\n');
+  };
+
+  // Check if the data is received correctly after the effects are set up
+  if (!generatedData) {
+    return <div>No data found. Please go back and generate some code.</div>;
+  }
+
+  const { html, css, js } = generatedData;
+
+  // If no code is necessary (e.g., no CSS or JS), display the cute cat image for that section
+  const showCatImageForCSS = !css;
+  const showCatImageForJS = !js;
 
   return (
       <div className="container">
@@ -91,7 +105,7 @@ function ResultsPage() {
             <div className="code-container">
               {selectedCodeType === 'html' && (
                   <pre className="code-block">
-                <code className="language-html">{html}</code>
+                <code className="language-html">{processCodeText(html)}</code>
               </pre>
               )}
 
@@ -103,7 +117,7 @@ function ResultsPage() {
               ) : (
                   selectedCodeType === 'css' && (
                       <pre className="code-block">
-                  <code className="language-css">{css}</code>
+                  <code className="language-css">{processCodeText(css)}</code>
                 </pre>
                   )
               )}
@@ -116,7 +130,7 @@ function ResultsPage() {
               ) : (
                   selectedCodeType === 'js' && (
                       <pre className="code-block">
-                  <code className="language-javascript">{js}</code>
+                  <code className="language-javascript">{processCodeText(js)}</code>
                 </pre>
                   )
               )}

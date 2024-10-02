@@ -16,7 +16,7 @@ COPY . .
 # Expose the port the React development server runs on
 EXPOSE 3000
 
-# Set environment variable for development mode
+# Set environment variable for development mode to enable hot-reload
 ENV CHOKIDAR_USEPOLLING=true
 
 # Start the React app with hot-reloading enabled
