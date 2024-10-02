@@ -76,7 +76,9 @@ function ResultsPage() {
   return (
       <div className="container">
         <header>
-          <img src="/logo.png" alt="Logo" className="logo-top-left" />
+          <div className="logo-container">
+            <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid"/>
+          </div>
         </header>
 
         <main>
@@ -112,8 +114,8 @@ function ResultsPage() {
 
               {selectedCodeType === 'css' && showCatImageForCSS ? (
                   <div className="cat-image-container">
-                    <img src="/cat.png" alt="No code necessary" />
-                    <p>No code necessary for this prompt! 😸</p>
+                    <img src="/cat.png" alt="No code necessary"/>
+                    <p>No code necessary for this prompt! </p>
                   </div>
               ) : (
                   selectedCodeType === 'css' && (
@@ -125,7 +127,7 @@ function ResultsPage() {
 
               {selectedCodeType === 'js' && showCatImageForJS ? (
                   <div className="cat-image-container">
-                    <img src="/cat.png" alt="No code necessary" />
+                    <img src="/cat.png" alt="No code necessary"/>
                     <p>No code necessary for this prompt! 😸</p>
                   </div>
               ) : (
