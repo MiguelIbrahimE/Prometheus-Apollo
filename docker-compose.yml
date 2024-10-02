@@ -1,13 +1,15 @@
 services:
   frontend:
     build:
-      context: ./web-gen-app  # Path to the frontend project directory
-      dockerfile: Dockerfile  # Path to Dockerfile within the web-gen-app directory
+      context: ./web-gen-app
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"  # Expose port 3000 for React
+      - "3000:3000"
     env_file:
-      - .env  # Reference your .env file
+      - .env  # Reference to the .env file for development
+    environment:
+      - REACT_APP_OPENAI_API_KEY=${REACT_APP_OPENAI_API_KEY}  # Use environment variable for the API key
     volumes:
-      - ./web-gen-app:/app  # Bind mount the source code for hot reload
-    stdin_open: true  # Keep the terminal open to allow interactive inputs if needed
-    tty: true  # Allocate a terminal for this container
+      - ./web-gen-app:/app
+    stdin_open: true
+    tty: true
