@@ -1,0 +1,149 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1e1e1e;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Flexbox wrapper for button and code container */
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* Prevent overflow */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    position: sticky;
+    top: 0;
+}
+
+.toggle-button {
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.toggle-button.active {
+    background-color: #007bff;
+}
+
+.code-container {
+
+    border-radius: 10px;
+    background-color: #2d2d2d;
+    flex: 1;
+    max-width: 100%;
+    overflow-x: auto;
+    max-height: 80vh;
+    box-sizing: border-box;
+}
+
+/* Code Block Styles */
+pre {
+    overflow-x: auto;
+    max-height: 70vh;
+    font-size: 14px;
+    color: #f8f8f2;
+    white-space: pre-wrap; /* Wrap long lines of code */
+    word-wrap: break-word;  /* Break long words if needed */
+}
+
+pre code {
+    font-size: 14px;
+    color: #f8f8f2;
+    white-space: pre-wrap; /* Ensure code wraps inside the pre */
+    word-wrap: break-word;
+}
+
+.cat-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat-image-container img {
+    width: 50%;
+    height: auto;
+    max-width: 300px;
+}
+
+.cat-image-container p {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #fff;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container {
+        flex-direction: row;
+        margin-bottom: 10px;
+        margin-right: 0;
+        justify-content: center;
+    }
+
+    .toggle-button {
+        margin-right: 10px;
+        margin-bottom: 0;
+        font-size: 12px;
+    }
+
+    .code-container {
+        width: 100%;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    pre {
+        font-size: 12px;
+    }
+
+    .cat-image-container img {
+        width: 70%;
+    }
+
+    .cat-image-container p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .code-container {
+        font-size: 16px;
+        padding: 30px;
+    }
+
+    pre {
+        font-size: 16px;
+    }
+
+    .cat-image-container img {
+        width: 50%;
+    }
+
+    .cat-image-container p {
+        font-size: 20px;
+    }
+}
