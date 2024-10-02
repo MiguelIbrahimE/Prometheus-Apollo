@@ -44,7 +44,6 @@
 }
 
 .code-container {
-
     border-radius: 10px;
     background-color: #2d2d2d;
     flex: 1;
@@ -56,12 +55,10 @@
 
 /* Code Block Styles */
 pre {
-    overflow-x: auto;
-    max-height: 70vh;
-    font-size: 14px;
-    color: #f8f8f2;
-    white-space: pre-wrap; /* Wrap long lines of code */
-    word-wrap: break-word;  /* Break long words if needed */
+    white-space: pre-wrap; /* Wrap long lines */
+    word-break: break-word; /* Ensure breaking of words on smaller screens */
+    overflow-x: auto; /* Enable horizontal scrolling if necessary */
+    max-width: 100%; /* Ensure it fits within the screen width */
 }
 
 pre code {
