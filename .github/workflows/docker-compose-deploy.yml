@@ -29,13 +29,9 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          echo "REACT_APP_OPENAI_API_KEY=${{ secrets.REACT_APP_OPENAI_API_KEY }}" > ./web-gen-app/.env
           docker-compose -f docker-compose.yml build
           docker-compose -f docker-compose.yml push
-
-      - name: Deploy to Netlify
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --prod
         env:
-          REACT_APP_OPENAI_API_KEY: ${{ secrets.REACT_APP_OPENAI_API_KEY }}
+          REACT_APP_OPENAI_API_KEY: ${{ secrets.REACT_APP_OPENAI_API_KEY }}  # Pass the secret as an environment variable
+
+
