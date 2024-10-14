@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Prism from 'prismjs';
+import anime from 'animejs';
 import 'prismjs/themes/prism-okaidia.css';
 import './Result.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +11,7 @@ function ResultsPage() {
   const { generatedData } = location.state || {};
 
   const [selectedCodeType, setSelectedCodeType] = useState('html');
+  const [showCopied, setShowCopied] = useState(false);
 
   useEffect(() => {
     Prism.highlightAll();
@@ -65,6 +67,34 @@ function ResultsPage() {
         .join('\n');
   };
 
+  const handleCopyToClipboard = (code) => {
+    // Copy the code to the clipboard
+    navigator.clipboard.writeText(code).then(() => {
+      // Set state to show the "Copied!" message
+      setShowCopied(true);
+
+      // Use a small delay to ensure state is set before triggering animation
+      setTimeout(() => {
+        // Run the animation
+        anime({
+          targets: '.copied-text',
+          translateY: [-20, -50],
+          opacity: [0, 1],
+          duration: 1000,
+          easing: 'easeOutQuad',
+          complete: () => {
+            setTimeout(() => {
+              // Hide the "Copied!" message after 1 second
+              setShowCopied(false);
+            }, 1000);
+          }
+        });
+      }, 50); // A slight delay to ensure state is updated
+    }).catch((err) => {
+      console.error('Failed to copy: ', err);
+    });
+  };
+
   if (!generatedData) {
     return <div>No data found. Please go back and generate some code.</div>;
   }
@@ -78,10 +108,22 @@ function ResultsPage() {
       <div className="container-fluid">
         <header>
           <div className="logo-container">
-            <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid"/>
+            <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid" />
+          </div>
+
+          {/* Buy Me a Coffee button */}
+          <div className="buy-me-coffee">
+            <a href="https://buymeacoffee.com/prometheus.desico" target="_blank" rel="noopener noreferrer">
+              <img
+                  src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+                  alt="Buy Me a Coffee"
+                  width="150"
+                  height="40"
+              />
+            </a>
           </div>
         </header>
-        <br></br><br></br><br></br><br></br><br></br><br></br>
+        <br /><br /><br /><br /><br /><br />
 
         <main>
           <div className="row">
@@ -108,34 +150,46 @@ function ResultsPage() {
 
             <div className="col-md-10 code-container">
               {selectedCodeType === 'html' && (
-                  <pre className="code-block">
-              <code className="language-html">{processCodeText(html)}</code>
-            </pre>
+                  <div className="code-block-wrapper">
+                    <button className="copy-button" onClick={() => handleCopyToClipboard(html)}>Copy</button>
+                    {showCopied && <div className="copied-text">Copied!</div>}
+                    <pre className="code-block">
+                  <code className="language-html">{processCodeText(html)}</code>
+                </pre>
+                  </div>
               )}
 
               {selectedCodeType === 'css' && showCatImageForCSS ? (
                   <div className="cat-image-container">
-                    <img src="/cat.png" alt="No code necessary"/>
+                    <img src="/cat.png" alt="No code necessary" />
                     <p>No code necessary for this prompt! </p>
                   </div>
               ) : (
                   selectedCodeType === 'css' && (
-                      <pre className="code-block">
-                <code className="language-css">{processCodeText(css)}</code>
-              </pre>
+                      <div className="code-block-wrapper">
+                        <button className="copy-button" onClick={() => handleCopyToClipboard(css)}>Copy</button>
+                        {showCopied && <div className="copied-text">Copied!</div>}
+                        <pre className="code-block">
+                    <code className="language-css">{processCodeText(css)}</code>
+                  </pre>
+                      </div>
                   )
               )}
 
               {selectedCodeType === 'js' && showCatImageForJS ? (
                   <div className="cat-image-container">
-                    <img src="/cat.png" alt="No code necessary"/>
+                    <img src="/cat.png" alt="No code necessary" />
                     <p>No code necessary for this prompt! </p>
                   </div>
               ) : (
                   selectedCodeType === 'js' && (
-                      <pre className="code-block">
-                <code className="language-javascript">{processCodeText(js)}</code>
-              </pre>
+                      <div className="code-block-wrapper">
+                        <button className="copy-button" onClick={() => handleCopyToClipboard(js)}>Copy</button>
+                        {showCopied && <div className="copied-text">Copied!</div>}
+                        <pre className="code-block">
+                    <code className="language-javascript">{processCodeText(js)}</code>
+                  </pre>
+                      </div>
                   )
               )}
             </div>

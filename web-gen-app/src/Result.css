@@ -174,3 +174,45 @@ pre code {
         font-size: 20px;
     }
 }
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #2d2d2d; /* Same grey as the code block */
+    color: white;
+    border: 1px solid #555; /* Subtle border */
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 0;
+    z-index: 10; /* Ensure it's on top of other elements */
+}
+
+.copied-text {
+    position: absolute;
+    top: 35px; /* Positioned right above the copy button */
+    right: 10px; /* Align with the copy button */
+    color: white; /* Set text color to white */
+    font-size: 12px;
+    opacity: 0; /* Initially hidden */
+    z-index: 20; /* Ensure it's above other elements */
+}
+
+.code-block-wrapper {
+    position: relative;
+    padding-top: 50px; /* Adjust to create space for the button at the top */
+    background-color: #2d2d2d;
+}
+.buy-me-coffee {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.buy-me-coffee img {
+    width: 150px; /* Size adjusted */
+    height: auto;
+    cursor: pointer;
+}
+
+
