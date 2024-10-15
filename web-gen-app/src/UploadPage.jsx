@@ -14,6 +14,16 @@ function UploadPage() {
   // Get the API key from the environment variable (which is stored in a .env file)
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
 
+  // List of filler words (we can expand this as needed)
+  const fillerWords = [
+    'it', 'they', 'he', 'she', 'me', 'we', 'you', 'hi', 'hello', 'hey', 'them', 'this', 'that',
+    'the', 'a', 'an', 'to', 'and', 'but', 'or', 'so', 'because', 'if', 'although', 'is', 'are',
+    'my', 'your', 'their', 'his', 'her', 'its', 'our', 'of', 'in', 'on', 'with', 'as', 'by', "thing", "just"
+  ];
+
+  // Verbs or keywords that indicate a meaningful request
+  const actionKeywords = ['create', 'generate', 'build', 'make', 'write', 'code', 'develop', 'design', "provide", "help", "write me", "write", "creates"];
+
   // Auto-resize textarea based on content
   const handleInputChange = (event) => {
     setInputText(event.target.value);
@@ -31,10 +41,39 @@ function UploadPage() {
     }
   }, []);
 
+  // Helper function to detect if the input contains only filler words
+  const isFillerText = (text) => {
+    const words = text.trim().toLowerCase().split(/\s+/);
+
+    // If there is only one word and it's a filler, return true
+    if (words.length === 1 && fillerWords.includes(words[0])) {
+      return true;
+    }
+
+    // Check if all words are filler words and no action keywords are present
+    const containsActionKeyword = words.some(word => actionKeywords.includes(word));
+    const allFillerWords = words.every(word => fillerWords.includes(word));
+
+    // If all words are filler, and no action words, return true
+    if (allFillerWords && !containsActionKeyword) {
+      return true;
+    }
+
+    // If it contains action words or it's a more meaningful sentence, return false
+    return false;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     setStatusMessage('Processing...');
+
+    // Check if the input text consists of filler words
+    if (isFillerText(inputText)) {
+      setStatusMessage('Sorry, this is not a prompt to create a code.');
+      setLoading(false);
+      return;
+    }
 
     try {
       // Precondition to ensure CSS and JS are referenced as external files in the HTML

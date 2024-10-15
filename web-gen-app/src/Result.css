@@ -214,5 +214,27 @@ pre code {
     height: auto;
     cursor: pointer;
 }
+/* Styling for the continue chatting button container */
+.continue-chatting-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adds space between the code block and the button */
+}
+
+/* Styling for the button */
+.continue-chatting-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.continue-chatting-button:hover {
+    background-color: #0056b3;
+}
+
 
 
