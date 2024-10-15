@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Using Axios to send HTTP requests
 import './App.css';
@@ -8,19 +8,72 @@ function UploadPage() {
   const [inputText, setInputText] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const textareaRef = useRef(null); // Ref for textarea
   const navigate = useNavigate();
 
   // Get the API key from the environment variable (which is stored in a .env file)
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
 
+  // List of filler words (we can expand this as needed)
+  const fillerWords = [
+    'it', 'they', 'he', 'she', 'me', 'we', 'you', 'hi', 'hello', 'hey', 'them', 'this', 'that',
+    'the', 'a', 'an', 'to', 'and', 'but', 'or', 'so', 'because', 'if', 'although', 'is', 'are',
+    'my', 'your', 'their', 'his', 'her', 'its', 'our', 'of', 'in', 'on', 'with', 'as', 'by', "thing", "just"
+  ];
+
+  // Verbs or keywords that indicate a meaningful request
+  const actionKeywords = ['create', 'generate', 'build', 'make', 'write', 'code', 'develop', 'design', "provide", "help", "write me", "write", "creates"];
+
+  // Auto-resize textarea based on content
   const handleInputChange = (event) => {
     setInputText(event.target.value);
+
+    // Auto-resize the textarea without shrinking below the initial size
+    event.target.style.height = 'auto'; // Reset height to auto
+    event.target.style.height = `${Math.max(textareaRef.current.scrollHeight, textareaRef.current.offsetHeight)}px`; // Set height dynamically
+  };
+
+  // Adjust textarea size based on placeholder text on initial render
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, []);
+
+  // Helper function to detect if the input contains only filler words
+  const isFillerText = (text) => {
+    const words = text.trim().toLowerCase().split(/\s+/);
+
+    // If there is only one word and it's a filler, return true
+    if (words.length === 1 && fillerWords.includes(words[0])) {
+      return true;
+    }
+
+    // Check if all words are filler words and no action keywords are present
+    const containsActionKeyword = words.some(word => actionKeywords.includes(word));
+    const allFillerWords = words.every(word => fillerWords.includes(word));
+
+    // If all words are filler, and no action words, return true
+    if (allFillerWords && !containsActionKeyword) {
+      return true;
+    }
+
+    // If it contains action words or it's a more meaningful sentence, return false
+    return false;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     setStatusMessage('Processing...');
+
+    // Check if the input text consists of filler words
+    if (isFillerText(inputText)) {
+      setStatusMessage('Sorry, this is not a prompt to create a code.');
+      setLoading(false);
+      return;
+    }
 
     try {
       // Precondition to ensure CSS and JS are referenced as external files in the HTML
@@ -103,20 +156,33 @@ function UploadPage() {
       <div className="container">
         <header>
           <div className="logo-container">
-            <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid"/>
+            <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid" />
+          </div>
+
+          {/* Buy Me a Coffee button */}
+          <div className="buy-me-coffee">
+            <a href="https://buymeacoffee.com/prometheus.desico" target="_blank" rel="noopener noreferrer">
+              <img
+                  src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+                  alt="Buy Me a Coffee"
+                  width="150"
+                  height="40"
+              />
+            </a>
           </div>
         </header>
-
 
         <main>
           <form onSubmit={handleSubmit}>
             <div className="input-area">
             <textarea
+                ref={textareaRef} // Assign the ref to the textarea
                 value={inputText}
                 onChange={handleInputChange}
-                placeholder="Enter your prompt (e.g., Create a button that redirects to Google)"
+                placeholder="Enter your prompt :D"
                 className="text-input"
-                rows="5"
+                rows="1" // Start with a single row
+                style={{ resize: 'none', overflow: 'hidden' }} // Disable manual resize and hide overflow
             />
               <button type="submit" className="submit-button" disabled={loading}>
                 {loading ? 'Processing...' : 'Generate Code'}
