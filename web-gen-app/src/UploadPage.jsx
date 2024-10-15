@@ -80,7 +80,7 @@ function UploadPage() {
       const preconditionPrompt = `
         Please provide a full HTML document that references an external CSS file and an external JavaScript file (if necessary).
         In the HTML <head> section, add a <link rel="stylesheet" href="./styles.css"> to reference the external CSS file, but only if CSS is required.
-        At the end of the <body> section, add a <script src="./script.js"></script> to reference the external JavaScript file, but only if JavaScript is required.
+        At the end of the <body> section, add a <script src="./script.js"></script> to reference the external JavaScript file, but only if JavaScript is required, if it is requred, do not add the Javascript in the HTML code, just reference it and provide the javascript seperatly.
         
         The CSS file should only contain valid CSS rules that style elements in the HTML. It should not contain any HTML or JavaScript.
         Similarly, the JavaScript file should contain only valid JavaScript code related to interactions with elements in the HTML. It should not contain any HTML or CSS.
