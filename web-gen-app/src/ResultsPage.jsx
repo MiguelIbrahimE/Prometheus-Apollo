@@ -134,23 +134,29 @@ function ResultsPage() {
               >
                 HTML
               </button>
-              <button
-                  className={`toggle-button ${selectedCodeType === 'css' ? 'active' : ''}`}
-                  onClick={() => handleToggle('css')}
-              >
-                CSS
-              </button>
-              <button
-                  className={`toggle-button ${selectedCodeType === 'js' ? 'active' : ''}`}
-                  onClick={() => handleToggle('js')}
-              >
-                JS
-              </button>
+
+
             </div>
 
             <div className="col-md-10 code-container">
               {selectedCodeType === 'html' && (
                   <div className="code-block-wrapper">
+
+
+                    <button
+                        className={`Secondary-buttons ${selectedCodeType === 'css' ? 'active' : ''}`}
+                        onClick={() => handleToggle('css')}
+                    >
+                      CSS
+                    </button>
+                    <button
+                        className={`Secondary-buttons ${selectedCodeType === 'js' ? 'active' : ''}`}
+                        onClick={() => handleToggle('js')}
+                    >
+                      JS
+                    </button>
+
+
                     <button className="copy-button" onClick={() => handleCopyToClipboard(html)}>Copy</button>
                     {showCopied && <div className="copied-text">Copied!</div>}
                     <pre className="code-block">
@@ -161,7 +167,7 @@ function ResultsPage() {
 
               {selectedCodeType === 'css' && showCatImageForCSS ? (
                   <div className="cat-image-container">
-                    <img src="/cat.png" alt="No code necessary" />
+                    <img src="/cat.png" alt="No code necessary"/>
                     <p>No code necessary for this prompt! </p>
                   </div>
               ) : (
