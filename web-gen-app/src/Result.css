@@ -13,23 +13,41 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden; /* Prevent overflow */
+    overflow-x: hidden;
+}
+
+/* Code and Preview each take up half of the screen */
+.col-md-6 {
+    flex-basis: 50%;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjust the scaling of the columns based on screen size */
+@media (max-width: 992px) {
+    .col-md-6 {
+        flex-basis: 100%;
+        max-width: 100%;
+        margin-bottom: 20px; /* Add margin for mobile views */
+    }
 }
 
 .button-container {
     display: flex;
     flex-direction: column;
-    margin-right: 10px;
+    margin-top: 15px;
     position: sticky;
     top: 0;
 }
 
+/* Updated styling for buttons (HTML, PHP) */
 .toggle-button {
     padding: 10px 20px;
-    margin-bottom: 5px;
+    margin-right: 10px;
     background-color: #333;
     color: white;
     border: none;
@@ -37,10 +55,24 @@
     transition: background-color 0.3s ease;
     border-radius: 5px;
     font-size: 14px;
+    text-align: center;
 }
 
+/* Active state styling for buttons */
 .toggle-button.active {
     background-color: #007bff;
+}
+
+/* Updated Copy to Clipboard button with yellow background */
+.copy-button {
+    padding: 10px 20px;
+    background-color: #ffcc00; /* Yellow background */
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    float: right;
 }
 
 /* Adjust the code container responsiveness */
@@ -79,7 +111,6 @@ pre code {
     box-sizing: border-box;
 }
 
-
 /* Ensure the logo scales responsively */
 .logo-container {
     width: 9%;
@@ -96,7 +127,6 @@ pre code {
     height: auto;
     object-fit: contain; /* Scale the image inside the container */
 }
-
 
 .cat-image-container {
     display: flex;
@@ -174,35 +204,25 @@ pre code {
         font-size: 20px;
     }
 }
-.copy-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #2d2d2d; /* Same grey as the code block */
-    color: white;
-    border: 1px solid #555; /* Subtle border */
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 12px;
-    border-radius: 0;
-    z-index: 10; /* Ensure it's on top of other elements */
-}
 
+/* Copied text styling */
 .copied-text {
     position: absolute;
     top: 35px; /* Positioned right above the copy button */
-    right: 10px; /* Align with the copy button */
+    right: 150px; /* Align with the copy button */
     color: white; /* Set text color to white */
     font-size: 12px;
     opacity: 0; /* Initially hidden */
     z-index: 20; /* Ensure it's above other elements */
 }
 
+/* Code block wrapper styling */
 .code-block-wrapper {
     position: relative;
-    padding-top: 50px; /* Adjust to create space for the button at the top */
+    padding-top: 5px; /* Adjust to create space for the button at the top */
     background-color: #2d2d2d;
 }
+
 .buy-me-coffee {
     position: absolute;
     top: 20px;
@@ -214,6 +234,7 @@ pre code {
     height: auto;
     cursor: pointer;
 }
+
 /* Styling for the continue chatting button container */
 .continue-chatting-wrapper {
     display: flex;
@@ -221,7 +242,7 @@ pre code {
     margin-top: 20px; /* Adds space between the code block and the button */
 }
 
-/* Styling for the button */
+/* Styling for the continue chatting button */
 .continue-chatting-button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -235,6 +256,3 @@ pre code {
 .continue-chatting-button:hover {
     background-color: #0056b3;
 }
-
-
-
