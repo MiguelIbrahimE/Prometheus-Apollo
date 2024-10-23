@@ -12,6 +12,7 @@ function ResultsPage() {
 
   const [selectedCodeType, setSelectedCodeType] = useState('html');
   const [showCopied, setShowCopied] = useState(false);
+  const [previewContent, setPreviewContent] = useState(''); // For preview
 
   useEffect(() => {
     Prism.highlightAll();
@@ -42,6 +43,11 @@ function ResultsPage() {
 
   const handleToggle = (codeType) => {
     setSelectedCodeType(codeType);
+    if (codeType === 'html') {
+      setPreviewContent(generatedData?.html || '');
+    } else if (codeType === 'php') {
+      setPreviewContent(''); // You can handle PHP preview accordingly
+    }
   };
 
   const processCodeText = (codeText) => {
@@ -68,14 +74,10 @@ function ResultsPage() {
   };
 
   const handleCopyToClipboard = (code) => {
-    // Copy the code to the clipboard
     navigator.clipboard.writeText(code).then(() => {
-      // Set state to show the "Copied!" message
       setShowCopied(true);
 
-      // Use a small delay to ensure state is set before triggering animation
       setTimeout(() => {
-        // Run the animation
         anime({
           targets: '.copied-text',
           translateY: [-20, -50],
@@ -84,12 +86,11 @@ function ResultsPage() {
           easing: 'easeOutQuad',
           complete: () => {
             setTimeout(() => {
-              // Hide the "Copied!" message after 1 second
               setShowCopied(false);
             }, 1000);
-          }
+          },
         });
-      }, 50); // A slight delay to ensure state is updated
+      }, 50);
     }).catch((err) => {
       console.error('Failed to copy: ', err);
     });
@@ -111,7 +112,6 @@ function ResultsPage() {
             <img src="/logo.png" alt="Logo" className="logo-top-left img-fluid" />
           </div>
 
-          {/* Buy Me a Coffee button */}
           <div className="buy-me-coffee">
             <a href="https://buymeacoffee.com/prometheus.desico" target="_blank" rel="noopener noreferrer">
               <img
@@ -125,79 +125,44 @@ function ResultsPage() {
         </header>
         <br /><br /><br /><br /><br /><br />
 
-        <main>
+        <main className="content-wrapper">
           <div className="row">
-            <div className="col-md-2 button-container">
-              <button
-                  className={`toggle-button ${selectedCodeType === 'html' ? 'active' : ''}`}
-                  onClick={() => handleToggle('html')}
-              >
-                HTML
-              </button>
+            <div className="col-md-5 code-container">
+              <div className="code-header">
+                <div className="left-buttons">
+                  <button
+                      className={`toggle-button ${selectedCodeType === 'html' ? 'active' : ''}`}
+                      onClick={() => handleToggle('html')}
+                  >
+                    HTML
+                  </button>
+                  <button
+                      className={`toggle-button ${selectedCodeType === 'php' ? 'active' : ''}`}
+                      onClick={() => handleToggle('php')}
+                  >
+                    PHP
+                  </button>
+                </div>
+                <button className="copy-button" onClick={() => handleCopyToClipboard(html)}>Copy to Clipboard</button>
+              </div>
 
-
-            </div>
-
-            <div className="col-md-10 code-container">
               {selectedCodeType === 'html' && (
                   <div className="code-block-wrapper">
-
-
-                    <button
-                        className={`Secondary-buttons ${selectedCodeType === 'css' ? 'active' : ''}`}
-                        onClick={() => handleToggle('css')}
-                    >
-                      CSS
-                    </button>
-                    <button
-                        className={`Secondary-buttons ${selectedCodeType === 'js' ? 'active' : ''}`}
-                        onClick={() => handleToggle('js')}
-                    >
-                      JS
-                    </button>
-
-
-                    <button className="copy-button" onClick={() => handleCopyToClipboard(html)}>Copy</button>
-                    {showCopied && <div className="copied-text">Copied!</div>}
-                    <pre className="code-block">
+                <pre className="code-block">
                   <code className="language-html">{processCodeText(html)}</code>
                 </pre>
                   </div>
               )}
+            </div>
 
-              {selectedCodeType === 'css' && showCatImageForCSS ? (
-                  <div className="cat-image-container">
-                    <img src="/cat.png" alt="No code necessary"/>
-                    <p>No code necessary for this prompt! </p>
-                  </div>
-              ) : (
-                  selectedCodeType === 'css' && (
-                      <div className="code-block-wrapper">
-                        <button className="copy-button" onClick={() => handleCopyToClipboard(css)}>Copy</button>
-                        {showCopied && <div className="copied-text">Copied!</div>}
-                        <pre className="code-block">
-                    <code className="language-css">{processCodeText(css)}</code>
-                  </pre>
-                      </div>
-                  )
-              )}
-
-              {selectedCodeType === 'js' && showCatImageForJS ? (
-                  <div className="cat-image-container">
-                    <img src="/cat.png" alt="No code necessary" />
-                    <p>No code necessary for this prompt! </p>
-                  </div>
-              ) : (
-                  selectedCodeType === 'js' && (
-                      <div className="code-block-wrapper">
-                        <button className="copy-button" onClick={() => handleCopyToClipboard(js)}>Copy</button>
-                        {showCopied && <div className="copied-text">Copied!</div>}
-                        <pre className="code-block">
-                    <code className="language-javascript">{processCodeText(js)}</code>
-                  </pre>
-                      </div>
-                  )
-              )}
+            <div className="col-md-7 preview-container">
+              <h4>Live Preview</h4>
+              <iframe
+                  srcDoc={previewContent}
+                  title="HTML Preview"
+                  sandbox="allow-scripts allow-same-origin"
+                  className="preview-frame"
+              ></iframe>
             </div>
           </div>
         </main>

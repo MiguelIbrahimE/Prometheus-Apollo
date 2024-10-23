@@ -132,6 +132,39 @@ html, body {
   background-color: #0056b3;
 }
 
+/* Mobile Alert Popup */
+.mobile-alert {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffcc00;
+  color: #333;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 14px;
+  animation: slideUp 0.5s forwards, slideDown 0.5s 4.5s forwards;
+}
+
+@keyframes slideUp {
+  from {
+    bottom: -100px;
+  }
+  to {
+    bottom: 20px;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    bottom: 20px;
+  }
+  to {
+    bottom: -100px;
+  }
+}
+
+/* Buy Me a Coffee button */
 .buy-me-coffee {
   position: absolute;
   top: 20px;
@@ -143,3 +176,24 @@ html, body {
   height: auto;
   cursor: pointer;
 }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .input-area {
+    width: 90%; /* Take more space on mobile */
+  }
+
+  .text-input {
+    font-size: 14px;
+  }
+
+  .submit-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .status-message {
+    font-size: 12px;
+  }
+}
+
