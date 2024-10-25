@@ -1,86 +1,124 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #1e1e1e;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Flexbox wrapper for button and code container */
-.content-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-/* Code and Preview each take up half of the screen */
-.col-md-6 {
-    flex-basis: 50%;
-    max-width: 50%;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Adjust the scaling of the columns based on screen size */
-@media (max-width: 992px) {
-    .col-md-6 {
-        flex-basis: 100%;
-        max-width: 100%;
-        margin-bottom: 20px; /* Add margin for mobile views */
-    }
-}
-
-.button-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
-    position: sticky;
-    top: 0;
-}
-
-/* Updated styling for buttons (HTML, PHP) */
-.toggle-button {
-    padding: 10px 20px;
-    margin-right: 10px;
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border-radius: 5px;
-    font-size: 14px;
-    text-align: center;
-}
-
-/* Active state styling for buttons */
-.toggle-button.active {
-    background-color: #007bff;
-}
-
-/* Updated Copy to Clipboard button with yellow background */
-.copy-button {
-    padding: 10px 20px;
-    background-color: #ffcc00; /* Yellow background */
-    color: black;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 14px;
-    float: right;
-}
-
-/* Adjust the code container responsiveness */
+/* Main container for the page */
 .container-fluid {
     padding: 20px;
     background-color: #1e1e1e;
 }
 
+/* Flexbox for content */
+.content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Code and Preview each take up half the screen on larger screens */
+.col-md-6, .col-lg-6 {
+    flex-basis: 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+}
+
+/* Full width for mobile view */
+.full-width {
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
+/* Hide preview on mobile screens */
+@media (max-width: 768px) {
+    .preview-container {
+        display: none;
+    }
+}
+
+/* Adjust logo size */
+.logo-top-left {
+    width: 100%;
+    height: auto;
+    max-width: 200px; /* Limit the maximum width of the logo */
+}
+
+/* Adjust logo size on smaller screens */
+@media (max-width: 768px) {
+    .logo-top-left {
+        max-width: 150px; /* Reduce logo size further for smaller screens */
+    }
+}
+
+/* Buy me a coffee button styling */
+.buy-me-coffee {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.buy-me-coffee img {
+    width: 150px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Browser mockup for live preview */
+.browser-mockup {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.browser-header {
+    background-color: #f0f0f0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.browser-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.browser-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.browser-button.close {
+    background-color: #ff5f57;
+}
+
+.browser-button.minimize {
+    background-color: #ffbd2e;
+}
+
+.browser-button.maximize {
+    background-color: #28c840;
+}
+
+.browser-address-bar {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Live preview frame inside the browser */
+.preview-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: white;
+}
+
+/* Styling for code container */
 .code-container {
     border-radius: 10px;
     background-color: #2d2d2d;
@@ -88,7 +126,15 @@
     max-width: 100%;
     overflow-x: auto;
     max-height: 80vh;
-    padding: 10px; /* Ensure padding for better readability */
+    padding: 10px;
+}
+
+/* Styling for code block */
+.code-block-wrapper {
+    background-color: #2d2d2d;
+    padding: 10px;
+    border-radius: 8px;
+    overflow: auto;
 }
 
 pre {
@@ -111,44 +157,68 @@ pre code {
     box-sizing: border-box;
 }
 
-/* Ensure the logo scales responsively */
-.logo-container {
-    width: 9%;
-    max-width: 70px;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 100; /* Make sure the logo stays on top */
-}
-
-/* Ensure the logo image fills the container and scales responsively */
-.logo-top-left {
-    width: 100%;
-    height: auto;
-    object-fit: contain; /* Scale the image inside the container */
-}
-
-.cat-image-container {
+/* Aligning the buttons in a row */
+.code-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    padding-bottom: 10px;
 }
 
-.cat-image-container img {
-    width: 50%;
-    height: auto;
-    max-width: 300px;
+.left-buttons {
+    display: flex;
+    align-items: center;
 }
 
-.cat-image-container p {
-    margin-top: 10px;
-    font-size: 18px;
-    color: #fff;
+.right-buttons {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-/* Responsive styles */
-@media screen and (max-width: 768px) {
+/* Toggle button styles */
+.toggle-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.toggle-button.active {
+    background-color: #007bff;
+}
+
+/* Copy to clipboard button */
+.copy-button {
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Styling for copied text animation */
+.copied-text {
+    position: absolute;
+    top: -30px; /* Position above the copy button */
+    right: 0;
+    color: white;
+    font-size: 12px;
+    opacity: 0;
+    z-index: 20;
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
     .content-wrapper {
         flex-direction: column;
         align-items: center;
@@ -176,17 +246,10 @@ pre code {
     pre {
         font-size: 12px;
     }
-
-    .cat-image-container img {
-        width: 70%;
-    }
-
-    .cat-image-container p {
-        font-size: 16px;
-    }
 }
 
-@media screen and (min-width: 1440px) {
+/* Larger screen adjustments */
+@media (min-width: 1440px) {
     .code-container {
         font-size: 16px;
         padding: 30px;
@@ -195,64 +258,4 @@ pre code {
     pre {
         font-size: 16px;
     }
-
-    .cat-image-container img {
-        width: 50%;
-    }
-
-    .cat-image-container p {
-        font-size: 20px;
-    }
-}
-
-/* Copied text styling */
-.copied-text {
-    position: absolute;
-    top: 35px; /* Positioned right above the copy button */
-    right: 150px; /* Align with the copy button */
-    color: white; /* Set text color to white */
-    font-size: 12px;
-    opacity: 0; /* Initially hidden */
-    z-index: 20; /* Ensure it's above other elements */
-}
-
-/* Code block wrapper styling */
-.code-block-wrapper {
-    position: relative;
-    padding-top: 5px; /* Adjust to create space for the button at the top */
-    background-color: #2d2d2d;
-}
-
-.buy-me-coffee {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-.buy-me-coffee img {
-    width: 150px; /* Size adjusted */
-    height: auto;
-    cursor: pointer;
-}
-
-/* Styling for the continue chatting button container */
-.continue-chatting-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* Adds space between the code block and the button */
-}
-
-/* Styling for the continue chatting button */
-.continue-chatting-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.continue-chatting-button:hover {
-    background-color: #0056b3;
 }
