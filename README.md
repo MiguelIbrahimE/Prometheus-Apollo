@@ -1,3 +1,5 @@
+![logo](https://github.com/user-attachments/assets/a01d4dd9-5610-46d3-adb1-300228bdc20d)
+
 # Prometheus Code Generation Tool
 
 This repository contains a simple web application built using **React**, **Prism.js**, **Anime.js**, and **Bootstrap**. The app allows users to input code prompts and receive generated HTML, CSS, and JavaScript code, which can be viewed and tested through a live preview embedded within a browser-like interface.
@@ -5,6 +7,7 @@ This repository contains a simple web application built using **React**, **Prism
 ## Table of Contents
 
 1. [Features](#features)
+
 2. [Technologies Used](#technologies-used)
 3. [How It Works](#how-it-works)
 
