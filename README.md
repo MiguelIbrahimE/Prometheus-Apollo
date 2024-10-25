@@ -1,4 +1,4 @@
-![logo](https://github.com/user-attachments/assets/a01d4dd9-5610-46d3-adb1-300228bdc20d)
+<img width="898" alt="cat" src="https://github.com/user-attachments/assets/f3399c4c-163a-4dcb-9c85-afd300aebf9a">
 
 # Prometheus Code Generation Tool
 
