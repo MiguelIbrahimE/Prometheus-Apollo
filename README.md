@@ -6,8 +6,7 @@ This repository contains a simple web application built using **React**, **Prism
 
 1. [Features](#features)
 2. [Technologies Used](#technologies-used)
-3. [File Structure](#file-structure)
-4. [How It Works](#how-it-works)
+3. [How It Works](#how-it-works)
 
 
 ## Features
@@ -24,58 +23,6 @@ This repository contains a simple web application built using **React**, **Prism
 - **Anime.js**: A flexible JavaScript animation library.
 - **Bootstrap**: A front-end framework for responsive design.
 - **Axios**: For making API requests.
-
-## File Structure
-
-.
-├── README.md
-├── docker-compose.yml
-└── web-gen-app
-├── Dockerfile
-├── build
-│   ├── asset-manifest.json
-│   ├── cat.png
-│   ├── favi.png
-│   ├── favico.ico
-│   ├── index.html
-│   ├── laptop-clr.png
-│   ├── laptop.png
-│   ├── logo.png
-│   └── static
-│       ├── css
-│       │   ├── main.91328d15.css
-│       │   └── main.91328d15.css.map
-│       └── js
-│           ├── 453.dc1a4ebd.chunk.js
-│           ├── 453.dc1a4ebd.chunk.js.map
-│           ├── main.215e67c7.js
-│           ├── main.215e67c7.js.LICENSE.txt
-│           └── main.215e67c7.js.map
-├── components
-│   └── FileUpload.js
-├── package-lock.json
-├── package.json
-├── public
-│   ├── cat.png
-│   ├── favi.png
-│   ├── favico.ico
-│   ├── index.html
-│   ├── laptop-clr.ico
-│   ├── laptop.png
-│   └── logo.png
-└── src
-├── App.css
-├── App.js
-├── Result.css
-├── ResultsPage.jsx
-├── Sample Generation
-├── UploadPage.jsx
-├── index.css
-├── index.js
-├── logo.svg
-├── reportWebVitals.js
-└── setupTests.js
-
 
 ## How It Works
 
