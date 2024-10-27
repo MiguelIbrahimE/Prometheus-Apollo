@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 function UploadPage() {
   const [inputText, setInputText] = useState('');
   const [statusMessage, setStatusMessage] = useState('');

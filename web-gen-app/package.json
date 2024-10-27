@@ -24,6 +24,9 @@
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "babel-jest": "^29.7.0",
+    "eslint-plugin-jest": "^26.9.0",
+    "eslint-plugin-react": "^7.32.0",
+    "eslint-plugin-testing-library": "^5.10.3",
     "jest": "^27.5.1",
     "jest-fetch-mock": "^3.0.3"
   },
@@ -31,10 +34,15 @@
     "start": "GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx",
+    "lint:fix": "eslint src --ext .js,.jsx --fix",
     "test": "jest --watchAll",
     "test:ci": "jest --coverage --coverageDirectory=coverage --collectCoverageFrom=['src/**/*.{js,jsx}']"
   },
   "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
     "collectCoverage": true,
     "coverageDirectory": "coverage",
     "coverageReporters": [
@@ -46,14 +54,26 @@
       "src/**/*.{js,jsx}",
       "!src/index.js",
       "!src/serviceWorker.js"
-    ]
+    ],
+    "transform": {
+      "^.+\\.[tj]sx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(axios)/)"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "identity-obj-proxy"
+    },
+    "testEnvironment": "jsdom"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+
+    "rules": {
+      "react/prop-types": "off",
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "testing-library/no-unnecessary-act": "warn"
+    },
+
   "browserslist": {
     "production": [
       ">0.2%",

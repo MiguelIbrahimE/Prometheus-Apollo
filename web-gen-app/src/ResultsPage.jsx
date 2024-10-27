@@ -6,6 +6,7 @@ import 'prismjs/themes/prism-okaidia.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Result.css';
 
+
 function ResultsPage() {
   const location = useLocation();
   const { generatedData } = location.state || {};
@@ -56,31 +57,16 @@ function ResultsPage() {
   const handleCopyToClipboard = (code) => {
     navigator.clipboard.writeText(code).then(() => {
       setShowCopied(true);
-      setTimeout(() => {
-        anime({
-          targets: '.copied-text',
-          translateY: [-20, 0],
-          opacity: [0, 1],
-          duration: 600,
-          easing: 'easeInQuad',
-          complete: () => {
-            setTimeout(() => {
-              setShowCopied(false);
-            }, 1000);
-          },
-        });
-      }, 50);
+      setTimeout(() => setShowCopied(false), 1500); // Show "Copied!" message for 1.5 seconds
     }).catch((err) => {
       console.error('Failed to copy: ', err);
     });
   };
-
   if (!generatedData) {
     return <div>No data found. Please go back and generate some code.</div>;
   }
 
   const { html } = generatedData;
-
   return (
       <div className="container-fluid results-page">
         <header className="row">
