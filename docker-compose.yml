@@ -1,13 +1,13 @@
 services:
   frontend:
     build:
-      context: ./web-gen-app
+      context: app
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
       - REACT_APP_OPENAI_API_KEY=${REACT_APP_OPENAI_API_KEY}  # Pass API key as environment variable
     volumes:
-      - ./web-gen-app:/app
+      - ./app:/app
     stdin_open: true
     tty: true
