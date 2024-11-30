@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function UploadPage() {
   const [inputText, setInputText] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
@@ -13,7 +14,6 @@ function UploadPage() {
 
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
 
-  // List of common conversation starters, fillers, and enders
   const fillers = [
     'hi', 'hello', 'hey', 'how are you', 'what\'s up', 'ok', 'okay', 'thanks', 'thank you', 'please', 'sure', 'goodbye',
     'bye', 'see you', 'take care', 'catch you later', 'alright', 'cool', 'awesome', 'sounds good', 'got it', 'understood',
@@ -25,7 +25,6 @@ function UploadPage() {
     'right on', 'not really', 'cool with me', 'that’s fine', 'works for me', 'same here', 'yessir', 'you bet', 'my pleasure'
   ];
 
-  // List of activating keywords
   const activatingKeywords = ['generate', 'code', 'html', 'css', 'javascript', 'build', 'create', 'make', 'script'];
 
   const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -36,7 +35,6 @@ function UploadPage() {
     event.target.style.height = `${Math.max(textareaRef.current.scrollHeight, textareaRef.current.offsetHeight)}px`;
   };
 
-  // Checks if prompt is meaningful by avoiding fillers and requiring activating keywords
   const isValidPrompt = (text) => {
     const cleanedText = text.trim().toLowerCase();
     const hasActivatingKeyword = activatingKeywords.some(keyword => cleanedText.includes(keyword));
@@ -63,8 +61,7 @@ function UploadPage() {
     setStatusMessage('Processing...');
 
     try {
-      const preconditionPrompt = `...`;
-      const fullPrompt = `${preconditionPrompt} ${inputText}. Please return only the HTML, CSS, and JavaScript code for this. Do not provide explanations.`;
+      const fullPrompt = `${inputText}. Please provide HTML code. Do not include explanations.`;
 
       const response = await axios.post(
           'https://api.openai.com/v1/chat/completions',
@@ -85,28 +82,14 @@ function UploadPage() {
       );
 
       const generatedText = response.data.choices[0].message.content;
+
       const htmlMatch = generatedText.match(/<!DOCTYPE html[\s\S]*<\/html>/i);
-      const cssMatch = generatedText.match(/(?<=<style>)[\s\S]*?(?=<\/style>)/i);
-      const jsMatch = generatedText.match(/(?<=<script>)[\s\S]*?(?=<\/script>)/i);
-
-      const hasCSS = cssMatch && cssMatch[0].trim();
-      const hasJS = jsMatch && jsMatch[0].trim();
-
-      let html = htmlMatch ? htmlMatch[0].replace(/<style[\s\S]*?>[\s\S]*<\/style>/, '') : 'No full HTML document found.';
-      if (!hasCSS) {
-        html = html.replace('<link rel="stylesheet" href="./styles.css">', '');
-      }
-      if (!hasJS) {
-        html = html.replace('<script src="./script.js"></script>', '');
-      }
 
       const generatedData = {
-        html,
-        css: hasCSS ? cssMatch[0].trim() : '',
-        js: hasJS ? jsMatch[0].trim() : '',
+        html: htmlMatch ? htmlMatch[0].trim() : 'No HTML code found.',
       };
 
-      if (!generatedData.html && !generatedData.css && !generatedData.js) {
+      if (!generatedData.html) {
         setStatusMessage('No code found. Please try a different prompt.');
       } else {
         navigate('/results', { state: { generatedData } });

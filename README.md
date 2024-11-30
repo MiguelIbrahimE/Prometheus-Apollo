@@ -90,4 +90,5 @@ The application uses **Bootstrap’s grid system** to ensure that the layout adj
 
 ### Example Request
 give me a code that generates random sequence of characters when you press a button,
+XZY00 is an example, QWE01give me a code that generates random sequence of characters when you press a button,
 XZY00 is an example, QWE01

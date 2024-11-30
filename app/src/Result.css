@@ -11,6 +11,36 @@
     justify-content: space-between;
 }
 
+/* Position the logo at the top-left of the page */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10; /* Ensure it stays above other elements */
+    width: 150px; /* Set a default size */
+}
+
+/* Ensure the logo image scales within the container */
+.logo-top-left {
+    width: 100%; /* Fill the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+    max-width: 200px; /* Limit the maximum width */
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+    .logo-container {
+        top: 10px;
+        left: 10px;
+        width: 120px; /* Reduce logo size on smaller screens */
+    }
+
+    .logo-top-left {
+        max-width: 120px;
+    }
+}
+
 /* Code and Preview each take up half the screen on larger screens */
 .col-md-6, .col-lg-6 {
     flex-basis: 50%;
@@ -28,20 +58,6 @@
 @media (max-width: 768px) {
     .preview-container {
         display: none;
-    }
-}
-
-/* Adjust logo size */
-.logo-top-left {
-    width: 100%;
-    height: auto;
-    max-width: 200px; /* Limit the maximum width of the logo */
-}
-
-/* Adjust logo size on smaller screens */
-@media (max-width: 768px) {
-    .logo-top-left {
-        max-width: 150px; /* Reduce logo size further for smaller screens */
     }
 }
 
