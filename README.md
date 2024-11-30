@@ -38,4 +38,7 @@ The application allows users to copy the generated code with a simple click on t
 ### Responsiveness
 The application uses **Bootstrap’s grid system** to ensure that the layout adjusts properly for different screen sizes. The preview is hidden on smaller screens, such as mobile devices, where space is limited.
 
-
+### Example Request
+give me a code that generates random sequence of characters when you press a button,
+XZY00 is an example, QWE01give me a code that generates random sequence of characters when you press a button,
+XZY00 is an example, QWE01
